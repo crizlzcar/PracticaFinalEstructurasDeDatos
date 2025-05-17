@@ -5,10 +5,11 @@ public class EstudianteIngenieria {
     private String Apellido;
     private String Telefono;
     private int Semestre;
-    private float Promedio;
-    private String Serial;
+    private double Promedio;
+    private String SerialComputador; // Serial del equipo prestado
 
     public EstudianteIngenieria() {
+
     }
 
     public String getCedula() {
@@ -51,20 +52,27 @@ public class EstudianteIngenieria {
         Semestre = semestre;
     }
 
-    public float getPromedio() {
+    public double getPromedio() {
         return Promedio;
     }
 
-    public void setPromedio(float promedio) {
+    public void setPromedio(double promedio) {
         Promedio = promedio;
     }
 
-    public String getSerial() {
-        return Serial;
+    public String getSerialComputador() {
+        return SerialComputador;
     }
 
-    public void setSerial(String serial) {
-        Serial = serial;
+    public void setSerialComputador(String serialComputador) {
+        SerialComputador = serialComputador;
+    }
+
+    @Override
+    public String toString() {
+        return "EstudianteIngenieria [Cedula=" + Cedula + ", Nombre=" + Nombre + ", Apellido=" + Apellido
+                + ", Telefono=" + Telefono + ", Semestre=" + Semestre + ", Promedio=" + Promedio
+                + ", SerialComputador=" + SerialComputador + "]";
     }
 
 }

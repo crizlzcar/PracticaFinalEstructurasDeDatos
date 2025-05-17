@@ -1,0 +1,32 @@
+***** ESTUDIANTES DE DISEÑO *****
+Cédula: 1793713740
+Nombre: Valentina
+Apellido: Vasquez
+Teléfono: 2007723807
+Modalidad: Presencial
+Asignaturas: 3
+Serial: 12345
+----------------------------------
+Cédula: 1037361028
+Nombre: Hugo
+Apellido: Henao
+Teléfono: 3001823807
+Modalidad: Virtual
+Asignaturas: 4
+Serial: 54321
+----------------------------------
+Cédula: 1047375020
+Nombre: Andres
+Apellido: Torres
+Teléfono: 3004887809
+Modalidad: Presencial
+Asignaturas: 5
+Serial: 99741
+----------------------------------
+Cédula: 1047375020
+Nombre: Lina
+Apellido: Ruiz
+Teléfono: 3058271835
+Modalidad: Virtual
+Asignaturas: 2
+Serial: 33856

@@ -1,0 +1,32 @@
+***** INVENTARIO TABLETA *****
+Serial: 12345
+Marca: Wacom
+Tamaño: 13.0
+Precio: 1900000.78
+Almacenamiento: 512GB
+Peso: 29.3
+Disponibilidad: En prestamo
+--------------------------------
+Serial: 54321
+Marca: Samsung
+Tamaño: 15.5
+Precio: 3900000.78
+Almacenamiento: 1024GB
+Peso: 56.3
+Disponibilidad: En prestamo
+--------------------------------
+Serial: 99741
+Marca: iPad
+Tamaño: 15.5
+Precio: 4900000.78
+Almacenamiento: 1024GB
+Peso: 59.3
+Disponibilidad: En prestamo
+--------------------------------
+Serial: 33856
+Marca: Huion
+Tamaño: 14.5
+Precio: 2900000.78
+Almacenamiento: 512GB
+Peso: 59.3
+Disponibilidad: En prestamo

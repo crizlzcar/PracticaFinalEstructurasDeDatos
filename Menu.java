@@ -1,55 +1,154 @@
-import java.util.ArrayList;
+
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
 
-    List<EstudianteDiseño> listaEstudiantesDiseño = new ArrayList<>();
-    List<EstudianteIngenieria> listaEstudiantesIngenieria = new ArrayList<>();
-    List<Portatil> listaPortatiles = new ArrayList<>();
-    List<Tableta> listaTabletas = new ArrayList<>();
-    Metodos metodos = new Metodos();
+    LinkedList<EstudianteDiseño> listaEstudiantesDiseño = new LinkedList<>();
+    LinkedList<EstudianteIngenieria> listaEstudiantesIngenieria = new LinkedList<>();
+    LinkedList<ComputadorPortatil> listaPortatiles = new LinkedList<>();
+    LinkedList<TabletaGrafica> listaTabletas = new LinkedList<>();
+    MetodosIngenieria metodos = new MetodosIngenieria();
     Scanner sc = new Scanner(System.in);
 
-    public void menuPrincipal() {
+    public void mostrarMenuPrincipal() {
+
+        boolean bandera = true;
+        while (bandera) {
+            System.out.println("\n--- GESTIÓN PRÉSTAMO EQUIPOS ELECTRÓNICOS SAN JUAN DE DIOS ---");
+            System.out.println("1. ESTUDIANTES DE INGENIERIA");
+            System.out.println("2. ESTUDIANTES DE DISEÑO");
+            System.out.println("3. IMPRIMIR INVENTARIO TOTAL");
+            System.out.println("4. SALIR DEL PROGRAMA");
+            System.out.print("Seleccione una opción: ");
+            int opcion = sc.nextInt();
+            switch (opcion) {
+                case 1:
+                    mostrarSubmenuIngenieria();
+                    break;
+                case 2:
+                    mostrarSubmenuDiseño();
+                    break;
+                case 3:
+                    imprimirInventarioTotal(listaPortatiles, listaTabletas);
+                    break;
+                case 4:
+                System.out.println("Gracias por usar el sistema. ¡Hasta luego!");
+                    bandera = false;
+                    break;
+                default:
+                    System.out.println("Opción no válida, intente nuevamente.");
+            }
+
+        }
+
+    }
+
+    public void imprimirInventarioTotal(List<ComputadorPortatil> listaPortatiles, List<TabletaGrafica> listaTabletas) {
+        System.out.println("\n--- INVENTARIO TOTAL ---");
+        System.out.println("Computadores Portátiles:");
+        for (ComputadorPortatil computador : listaPortatiles) {
+            System.out.println(computador);
+        }
+        System.out.println("Tabletas Gráficas:");
+        for (TabletaGrafica tableta : listaTabletas) {
+            System.out.println(tableta);
+        }
+    }
+
+    // Método para mostrar el submenú de Estudiantes de Ingeniería
+    public void mostrarSubmenuIngenieria() {
+        boolean bandera = true;
         int opcion = 0;
-        do {
-            System.out.println("Bienvenido al sistema de préstamo de equipos");
-            System.out.println("Seleccione una opción:");
-            System.out.println("1. Prestar tableta");
-            System.out.println("2. Mostrar lista de estudiantes");
-            System.out.println("3. Gestionar Portatiles");
-            System.out.println("4. Gestionar Tabletas");
-            System.out.println("5. Salir");
-
-            while (!sc.hasNextInt()) {
-                System.out.println("Por favor ingrese un dígito numérico...");
-                sc.next();
-            }
-
+        while (bandera) {
+            System.out.println("\n--- ESTUDIANTES DE INGENIERIA ---");
+            System.out.println("1 Registrar préstamo de Computador Portátil");
+            System.out.println("2 Modificar préstamo de Computador Portátil");
+            System.out.println("3 Devolución de Computador Portátil");
+            System.out.println("4 Buscar Computador Portátil");
+            System.out.println("5 Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
             opcion = sc.nextInt();
-            sc.nextLine();
-
-            while (opcion < 1 || opcion > 5) {
-                System.out.println("Ingrese un número de 1 a 5:");
-                opcion = sc.nextInt();
-            }
-
 
             switch (opcion) {
                 case 1:
-                    metodos.registrarPrestamoDiseño(listaEstudiantesDiseño);
+                System.out.println("PRESTAMO COMPUTADOR PORTATIL");
+                //ImportarIngenieria i = new ImportarIngenieria();             
+                metodos.registrarComputadorPortatil(listaPortatiles);
+                metodos.registrarEstudianteIngenieria(listaEstudiantesIngenieria);
+                metodos.prestarComputadorPortatil(listaPortatiles, listaEstudiantesIngenieria);
 
                     break;
-
                 case 2:
-                    metodos.MostrarPrestamoDiseño(listaEstudiantesDiseño, listaTabletas);
+                System.out.println("MODIFICAR PRESTAMO COMPUTADOR PORTATIL");
+                metodos.modificarPrestamoComputadorPortatil(listaPortatiles, listaEstudiantesIngenieria);
+
+                    break;
+                case 3:
+                System.out.println("DEVOLVER COMPUTADOR PORTATIL");
+                metodos.devolverComputadorPortatil(listaPortatiles);
+                    
+                    break;
+                case 4:
+                System.out.println("Buscar pc en construcción...");
+                    metodos.buscarComputadorPortatil(listaPortatiles);
+                    break;
+                case 5:
+                    bandera = false;
+                    System.out.println("Regresando al menú principal...");
                     break;
 
                 default:
+                    System.out.println("Opción no válida, intente nuevamente.");
                     break;
             }
-        } while (opcion != 5);
+
+        }
+
+    }
+
+    // Método para mostrar el submenú de Estudiantes de Diseño
+    public void mostrarSubmenuDiseño() {
+        boolean bandera = true;
+        int opcion = 0;
+        while (bandera) {
+            System.out.println("\n--- ESTUDIANTES DE DISEÑO ---");
+            System.out.println("1 Registrar préstamo de Tableta Gráfica");
+            System.out.println("2 Modificar préstamo de Tableta Gráfica");
+            System.out.println("3 Devolución de Tableta Gráfica");
+            System.out.println("4 Buscar Tableta Gráfica");
+            System.out.println("5 Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            opcion = sc.nextInt();
+            switch (opcion) {
+                case 1:
+                System.out.println("Prestamo tableta en construcción...");
+                    //metodos.registrarPrestamoTabletaGrafica(listaEstudiantesDiseño, listaTabletas);
+                    break;
+                case 2:
+                System.out.println("Modifcar tableta en construcción...");
+                    //metodos.modificarPrestamoTabletaGrafica(listaEstudiantesDiseño, listaTabletas);
+                    break;
+                case 3:
+                System.out.println("Devolver tableta en construcción...");
+                    //metodos.devolucionTabletaGrafica(listaEstudiantesDiseño, listaTabletas);
+                    break;
+                case 4:
+                System.out.println("Buscar tableta en construcción...");
+                    //metodos.buscarTabletaGrafica(listaEstudiantesDiseño, listaTabletas);
+                    break;
+                case 5:
+                    bandera = false;
+                    System.out.println("Regresando al menú principal...");
+                    break;
+
+                default:
+                    System.out.println("Opción no válida, intente nuevamente.");
+                    break;
+            }
+
+        }
 
     }
 

@@ -1,0 +1,32 @@
+***** ESTUDIANTES DE INGENIERIA *****
+Cédula: 1037128345
+Nombre: Cristian
+Apellido: Gonzalez
+Teléfono: 3047613892
+Semestre: 4
+Promedio: 4.1
+Serial: 20738
+----------------------------------
+Cédula: 1087118350
+Nombre: Yuliana
+Apellido: Perez
+Teléfono: 3087637890
+Semestre: 5
+Promedio: 4.7
+Serial: 10709
+----------------------------------
+Cédula: 1047168371
+Nombre: Juan
+Apellido: Gomez
+Teléfono: 3001647992
+Semestre: 6
+Promedio: 3.9
+Serial: 12478
+----------------------------------
+Cédula: 1072418753
+Nombre: Nataly
+Apellido: Florez
+Teléfono: 3013757827
+Semestre: 10
+Promedio: 4.4
+Serial: 42586

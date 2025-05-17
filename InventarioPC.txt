@@ -1,0 +1,33 @@
+***** INVENTARIO PORTÁTILES *****
+Serial: 20738
+Marca: Asus
+Tamaño: 15.5
+Precio: 3700000.33
+Sistema: Windows 11
+Procesador: Intel core i5
+Disponibilidad: En préstamo
+---------------------------------
+Serial: 10709
+Marca: Lenovo
+Tamaño: 14.5
+Precio: 2700000.36
+Sistema: Windows 10
+Procesador: AMD Ryzen 5
+Disponibilidad: En préstamo
+---------------------------------
+Serial: 12478
+Marca: HP
+Tamaño: 16.0
+Precio: 4800000.33
+Sistema: Windows 11
+Procesador: Intel core i5
+Disponibilidad: En préstamo
+---------------------------------
+Serial: 42586
+Marca: MSI
+Tamaño: 16.0
+Precio: 5900000.34
+Sistema: Windows 11
+Procesador: AMD Ryzen 9
+Disponibilidad: En préstamo
+---------------------------------
