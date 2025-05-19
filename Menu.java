@@ -10,6 +10,7 @@ public class Menu {
     LinkedList<ComputadorPortatil> listaPortatiles = new LinkedList<>();
     LinkedList<TabletaGrafica> listaTabletas = new LinkedList<>();
     MetodosIngenieria metodos = new MetodosIngenieria();
+    MetodosDiseño metodosDiseño = new MetodosDiseño();
     Scanner sc = new Scanner(System.in);
 
     public void mostrarMenuPrincipal() {
@@ -123,20 +124,22 @@ public class Menu {
             opcion = sc.nextInt();
             switch (opcion) {
                 case 1:
-                System.out.println("Prestamo tableta en construcción...");
-                    //metodos.registrarPrestamoTabletaGrafica(listaEstudiantesDiseño, listaTabletas);
+                System.out.println("PRESTAMO TABLETA GRAFICA");
+                metodosDiseño.registrarEstudianteDiseño(listaEstudiantesDiseño);
+                metodosDiseño.registrarTabletaGrafica(listaTabletas);
+                metodosDiseño.registrarPrestamoTabletaGrafica(listaTabletas, listaEstudiantesDiseño);
                     break;
                 case 2:
-                System.out.println("Modifcar tableta en construcción...");
-                    //metodos.modificarPrestamoTabletaGrafica(listaEstudiantesDiseño, listaTabletas);
+                System.out.println("MODIFICAR PRESTAMO TABLETA GRAFICA");
+                    metodosDiseño.modificarPrestamoTabletaGrafica(listaTabletas, listaEstudiantesDiseño);
                     break;
                 case 3:
-                System.out.println("Devolver tableta en construcción...");
-                    //metodos.devolucionTabletaGrafica(listaEstudiantesDiseño, listaTabletas);
+                System.out.println("DEVOLVER TABLETA GRAFICA");
+                    metodosDiseño.devolverTabletaGrafica(listaTabletas);
                     break;
                 case 4:
-                System.out.println("Buscar tableta en construcción...");
-                    //metodos.buscarTabletaGrafica(listaEstudiantesDiseño, listaTabletas);
+                System.out.println("BUSCAR TABLETA GRAFICA");
+                    metodosDiseño.buscarTabletaGrafica(listaTabletas);
                     break;
                 case 5:
                     bandera = false;

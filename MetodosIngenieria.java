@@ -171,7 +171,7 @@ public class MetodosIngenieria {
 
     // Método para eliminar un computador portátil
     public LinkedList<ComputadorPortatil> devolverComputadorPortatil(LinkedList<ComputadorPortatil> lista) {
-        System.out.println("Ingrese el serial del computador a eliminar:");
+        System.out.println("Ingrese el serial del computador a devolver:");
         String serial = sc.next();
         
         Iterator<ComputadorPortatil> iterator = lista.iterator();

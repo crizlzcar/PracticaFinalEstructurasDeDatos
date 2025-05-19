@@ -9,12 +9,13 @@ public class TabletaGrafica {
     private double precio;
     private String almacenamiento;
     private double peso;
-    private String disponibilidad;
-    public String getDisponibilidad() {
+    private boolean disponibilidad;
+
+    public boolean getDisponibilidad() {
         return disponibilidad;
     }
 
-    public void setDisponibilidad(String disponibilidad) {
+    public void setDisponibilidad(boolean disponibilidad) {
         this.disponibilidad = disponibilidad;
     }
 
