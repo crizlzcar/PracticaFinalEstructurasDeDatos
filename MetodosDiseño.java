@@ -6,23 +6,111 @@ import java.util.Iterator;
 public class MetodosDiseño {
     private final Scanner sc = new Scanner(System.in);
 
+    //Método para validar cadena de texto sin caracteres especiales
+
+    public String validarCadena(String cadena) {
+        
+        while (true) {
+            System.out.println("Ingrese un texto (solo letras y números):");
+            cadena = sc.nextLine().trim();
+            
+            if (cadena.isEmpty()) {
+                System.out.println("Error: La cadena no puede estar vacía.");
+                continue;
+            }
+            
+            if (cadena.matches("^[a-zA-Z0-9 ]*$")) {
+                return cadena;
+            } else {
+                System.out.println("Error: No se permiten caracteres especiales.");
+            }
+        }
+    }
+
+
+
+    //Método para validar cadena de texto sin caracteres especiales ni números
+
+    public String validarCadenaSinNumeros(String cadena) {
+        
+        while (true) {
+            System.out.println("Ingrese un texto (solo letras):");
+            cadena = sc.nextLine().trim();
+            
+            if (cadena.isEmpty()) {
+                System.out.println("Error: La cadena no puede estar vacía.");
+                continue;
+            }
+            
+            if (cadena.matches("^[a-zA-Z ]+$")) {
+                return cadena;
+            } else {
+                System.out.println("Error: No se permiten caracteres especiales ni números.");
+            }
+        }
+    }
+
+    //Método para validar núnmero entero
+
+    public int validarEntero(int i) {
+        
+        int numero = 0;
+        boolean entradaValida = false;
+        
+        while (!entradaValida) {
+            System.out.print(i);
+            
+            if (sc.hasNextInt()) {
+                numero = sc.nextInt();
+                entradaValida = true;
+            } else {
+                System.out.println("Error: Debe ingresar un número entero válido.");
+                sc.next();
+            }
+        }
+        
+        return numero;
+    }
+
+    //Método para validar double
+    
+        public double validarDecimal(Double numero) {
+            
+            boolean entradaValida = false;
+            
+            while (!entradaValida) {
+                System.out.print("Por favor, ingrese un número (puede ser decimal): ");
+                
+                if (sc.hasNextDouble()) {
+                    numero = sc.nextDouble();
+                    entradaValida = true;
+                } else {
+                    System.out.println("Error: Debe ingresar un número válido (ejemplo: 15 o 3.14).");
+                    sc.next();
+                }
+            }
+            
+            return numero;
+        }
+
+
     // Método para registrar un estudiante de diseño
     public LinkedList<EstudianteDiseño> registrarEstudianteDiseño(
             LinkedList<EstudianteDiseño> listaEstudiantesDiseño) {
         EstudianteDiseño estudiante = new EstudianteDiseño();
 
         System.out.println("Ingrese la cédula del estudiante:");
-        estudiante.setCedula(sc.next());
+        estudiante.setCedula(validarCadena(sc.next()));
         sc.nextLine(); // Limpiar buffer después de next()
 
         System.out.println("Ingrese el nombre del estudiante:");
-        estudiante.setNombre(sc.nextLine());
+        estudiante.setNombre(validarCadenaSinNumeros(sc.nextLine()));
 
         System.out.println("Ingrese el apellido del estudiante:");
-        estudiante.setApellido(sc.nextLine());
+        estudiante.setApellido(validarCadenaSinNumeros(sc.nextLine()));
 
         System.out.println("Ingrese el teléfono del estudiante:");
-        estudiante.setTelefono(sc.next());
+        estudiante.setTelefono(validarCadena(sc.next()));
 
         // Selección de modalidad de estudio
         String modalidad = modalidadEstudio();
@@ -31,7 +119,7 @@ public class MetodosDiseño {
         while (true) {
             try {
                 System.out.println("Ingrese la cantidad de asignaturas del estudiante:");
-                estudiante.setCantidadAsignaturas(sc.nextInt());
+                estudiante.setCantidadAsignaturas(validarEntero(sc.nextInt()));
                 sc.nextLine(); // Limpiar buffer después de nextInt()
                 break;
             } catch (InputMismatchException e) {
@@ -41,7 +129,7 @@ public class MetodosDiseño {
         }
 
         System.out.println("Ingrese el serial de la tableta:");
-        estudiante.setSerialEquipo(sc.next());
+        estudiante.setSerialEquipo(validarCadena(sc.next()));
 
         listaEstudiantesDiseño.add(estudiante);
         return listaEstudiantesDiseño;
@@ -78,25 +166,25 @@ public class MetodosDiseño {
         TabletaGrafica tableta = new TabletaGrafica();
 
         System.out.println("Ingrese el serial de la tableta:");
-        tableta.setSerial(sc.next());
+        tableta.setSerial(validarCadena(sc.next()));
         sc.nextLine(); // Limpiar buffer
 
         System.out.println("Ingrese la marca de la tableta:");
-        tableta.setMarca(sc.nextLine());
+        tableta.setMarca(validarCadenaSinNumeros(sc.nextLine()));
 
         System.out.println("Ingrese el tamaño de la tableta (en pulgadas):");
-        tableta.setTamano(sc.nextDouble());
+        tableta.setTamano(validarDecimal(sc.nextDouble()));
         sc.nextLine();
 
         System.out.println("Ingrese el precio de la tableta:");
-        tableta.setPrecio(sc.nextDouble());
+        tableta.setPrecio(validarDecimal(sc.nextDouble()));
         sc.nextLine();
 
         String almacenamiento = tableta.obtenerAlmacenamientoTableta(sc);
         tableta.setAlmacenamiento(almacenamiento);
 
         System.out.println("Ingrese el peso de la tableta (en kg):");
-        tableta.setPeso(sc.nextDouble());
+        tableta.setPeso(validarDecimal(sc.nextDouble()));
         sc.nextLine();
 
         tableta.setDisponible(seleccionarDisponibilidadTableta());
@@ -132,10 +220,10 @@ public class MetodosDiseño {
     public LinkedList<TabletaGrafica> registrarPrestamoTabletaGrafica(LinkedList<TabletaGrafica> listaTabletas,
             LinkedList<EstudianteDiseño> listaEstudiantesDiseño) {
         System.out.println("Ingrese el serial de la tableta a prestar:");
-        String serial = sc.next();
+        String serial = validarCadena(sc.next());
 
         System.out.println("Ingrese la cédula del estudiante:");
-        String cedula = sc.next();
+        String cedula = validarCadena(sc.next());
 
         for (TabletaGrafica tableta : listaTabletas) {
             if (tableta.getSerial().equalsIgnoreCase(serial) && tableta.isDisponible()) {
@@ -158,12 +246,12 @@ public class MetodosDiseño {
     public LinkedList<TabletaGrafica> modificarPrestamoTabletaGrafica(LinkedList<TabletaGrafica> lista,
             LinkedList<EstudianteDiseño> listaEstudiantesDiseño) {
         System.out.println("Ingrese la cédula del estudiante a modificar:");
-        String cedula = sc.next();
+        String cedula = validarCadena(sc.next());
 
         for (EstudianteDiseño estudiante : listaEstudiantesDiseño) {
             if (estudiante.getCedula().equalsIgnoreCase(cedula)) {
                 System.out.println("Ingrese el nuevo serial de la tableta:");
-                String nuevoSerial = sc.next();
+                String nuevoSerial = validarCadena(sc.next());
 
                 for (TabletaGrafica tableta : lista) {
                     if (tableta.getSerial().equals(nuevoSerial)) {
@@ -183,7 +271,7 @@ public class MetodosDiseño {
     // Método para eliminar una tableta gráfica
     public LinkedList<TabletaGrafica> devolverTabletaGrafica(LinkedList<TabletaGrafica> lista) {
         System.out.println("Ingrese el serial de la tableta a devolver:");
-        String serial = sc.next();
+        String serial = validarCadena(sc.next());
 
         Iterator<TabletaGrafica> iterator = lista.iterator();
         while (iterator.hasNext()) {
@@ -201,7 +289,7 @@ public class MetodosDiseño {
     // Método para buscar una tableta gráfica por serial
     public TabletaGrafica buscarTabletaGrafica(LinkedList<TabletaGrafica> lista) {
         System.out.println("Ingrese el serial de la tableta a buscar:");
-        String serial = sc.next();
+        String serial = validarCadena(sc.next());
 
         for (TabletaGrafica tableta : lista) {
             if (tableta.getSerial().equals(serial)) {

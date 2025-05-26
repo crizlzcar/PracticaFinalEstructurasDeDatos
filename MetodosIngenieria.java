@@ -8,31 +8,118 @@ public class MetodosIngenieria {
 
     private final Scanner sc = new Scanner(System.in);
 
+    //Método para validar cadena de texto sin caracteres especiales
+
+    public String validarCadena(String cadena) {
+        
+        while (true) {
+            System.out.println("Ingrese un texto (solo letras y números):");
+            cadena = sc.nextLine().trim();
+            
+            if (cadena.isEmpty()) {
+                System.out.println("Error: La cadena no puede estar vacía.");
+                continue;
+            }
+            
+            if (cadena.matches("^[a-zA-Z0-9 ]*$")) {
+                return cadena;
+            } else {
+                System.out.println("Error: No se permiten caracteres especiales.");
+            }
+        }
+    }
+
+
+
+    //Método para validar cadena de texto sin caracteres especiales ni números
+
+    public String validarCadenaSinNumeros(String cadena) {
+        
+        while (true) {
+            System.out.println("Ingrese un texto (solo letras):");
+            cadena = sc.nextLine().trim();
+            
+            if (cadena.isEmpty()) {
+                System.out.println("Error: La cadena no puede estar vacía.");
+                continue;
+            }
+            
+            if (cadena.matches("^[a-zA-Z ]+$")) {
+                return cadena;
+            } else {
+                System.out.println("Error: No se permiten caracteres especiales ni números.");
+            }
+        }
+    }
+
+    //Método para validar núnmero entero
+
+    public int validarEntero(int i) {
+        
+        int numero = 0;
+        boolean entradaValida = false;
+        
+        while (!entradaValida) {
+            System.out.print(i);
+            
+            if (sc.hasNextInt()) {
+                numero = sc.nextInt();
+                entradaValida = true;
+            } else {
+                System.out.println("Error: Debe ingresar un número entero válido.");
+                sc.next();
+            }
+        }
+        
+        return numero;
+    }
+
+    //Método para validar double
+    
+        public double validarDecimal(Double numero) {
+            
+            boolean entradaValida = false;
+            
+            while (!entradaValida) {
+                System.out.print("Por favor, ingrese un número (puede ser decimal): ");
+                
+                if (sc.hasNextDouble()) {
+                    numero = sc.nextDouble();
+                    entradaValida = true;
+                } else {
+                    System.out.println("Error: Debe ingresar un número válido (ejemplo: 15 o 3.14).");
+                    sc.next();
+                }
+            }
+            
+            return numero;
+        }
+
     // Método para registrar un estudiante de ingeniería
     public LinkedList<EstudianteIngenieria> registrarEstudianteIngenieria(
             LinkedList<EstudianteIngenieria> listaEstudiantesIngenieria) {
         EstudianteIngenieria estudiante = new EstudianteIngenieria();
         
         System.out.println("Ingrese la cédula del estudiante:");
-        estudiante.setCedula(sc.next());
+        estudiante.setCedula(validarCadena(sc.next()));
         
         System.out.println("Ingrese el nombre del estudiante:");
-        estudiante.setNombre(sc.next());
+        estudiante.setNombre(validarCadenaSinNumeros(sc.next()));
         
         System.out.println("Ingrese el apellido del estudiante:");
-        estudiante.setApellido(sc.next());
+        estudiante.setApellido(validarCadenaSinNumeros(sc.next()));
         
         System.out.println("Ingrese el teléfono del estudiante:");
-        estudiante.setTelefono(sc.next());
+        estudiante.setTelefono(validarCadena(sc.next()));
         
         System.out.println("Ingrese el semestre del estudiante:");
-        estudiante.setSemestre(sc.nextInt());
+        estudiante.setSemestre(validarEntero(sc.nextInt()));
         
         System.out.println("Ingrese el promedio del estudiante:");
-        estudiante.setPromedio(sc.nextDouble());
+        estudiante.setPromedio(validarDecimal(sc.nextDouble()));
         
         System.out.println("Ingrese el serial del computador:");
-        estudiante.setSerialComputador(sc.next());
+        estudiante.setSerialComputador(validarCadena(sc.next()));
 
         listaEstudiantesIngenieria.add(estudiante);
         return listaEstudiantesIngenieria;
@@ -98,16 +185,16 @@ public class MetodosIngenieria {
         ComputadorPortatil computador = new ComputadorPortatil();
         
         System.out.println("Ingrese el serial del computador:");
-        computador.setSerial(sc.next());
+        computador.setSerial(validarCadena(sc.next()));
         
         System.out.println("Ingrese la marca del computador:");
-        computador.setMarca(sc.next());
+        computador.setMarca(validarCadenaSinNumeros(sc.next()));
         
         System.out.println("Ingrese el tamaño de la pantalla (pulgadas):");
-        computador.setTamaño(sc.nextDouble());
+        computador.setTamaño(validarDecimal(sc.nextDouble()));
         
         System.out.println("Ingrese el precio del computador:");
-        computador.setPrecio(sc.nextDouble());
+        computador.setPrecio(validarDecimal(sc.nextDouble()));
         
         computador.setSistemaOperativo(seleccionarSistemaOperativo());
         computador.setProcesador(seleccionarProcesador());
@@ -121,10 +208,10 @@ public class MetodosIngenieria {
     public LinkedList<ComputadorPortatil> prestarComputadorPortatil(LinkedList<ComputadorPortatil> listaPC,
             LinkedList<EstudianteIngenieria> listaEstudiantesIngenieria) {
         System.out.println("Ingrese el serial del computador a prestar:");
-        String serial = sc.next();
+        String serial = validarCadena(sc.next());
         
         System.out.println("Ingrese la cédula del estudiante:");
-        String cedula = sc.next();
+        String cedula = validarCadena(sc.next());
         
         for (ComputadorPortatil computador : listaPC) {
             if (computador.getSerial().equals(serial) && computador.isDisponible()) {
@@ -147,12 +234,12 @@ public class MetodosIngenieria {
     public LinkedList<ComputadorPortatil> modificarPrestamoComputadorPortatil(LinkedList<ComputadorPortatil> lista,
             LinkedList<EstudianteIngenieria> listaEstudiantesIngenieria) {
         System.out.println("Ingrese la cédula del estudiante a modificar:");
-        String cedula = sc.next();
+        String cedula = validarCadena(sc.next());
         
         for (EstudianteIngenieria estudiante : listaEstudiantesIngenieria) {
             if (estudiante.getCedula().equals(cedula)) {
                 System.out.println("Ingrese el nuevo serial del computador:");
-                String nuevoSerial = sc.next();
+                String nuevoSerial = validarCadena(sc.next());
                 
                 for (ComputadorPortatil computador : lista) {
                     if (computador.getSerial().equals(nuevoSerial)) {
@@ -172,7 +259,7 @@ public class MetodosIngenieria {
     // Método para eliminar un computador portátil
     public LinkedList<ComputadorPortatil> devolverComputadorPortatil(LinkedList<ComputadorPortatil> lista) {
         System.out.println("Ingrese el serial del computador a devolver:");
-        String serial = sc.next();
+        String serial = validarCadena(sc.next());
         
         Iterator<ComputadorPortatil> iterator = lista.iterator();
         while (iterator.hasNext()) {
@@ -190,7 +277,7 @@ public class MetodosIngenieria {
     // Método para buscar un computador portátil por serial
     public ComputadorPortatil buscarComputadorPortatil(LinkedList<ComputadorPortatil> lista) {
         System.out.println("Ingrese el serial del computador a buscar:");
-        String serial = sc.next();
+        String serial = validarCadena(sc.next());
         
         for (ComputadorPortatil computador : lista) {
             if (computador.getSerial().equals(serial)) {
