@@ -103,7 +103,7 @@ public class ImportarDiseño {
                     }
                 } else if (linea.startsWith("Disponibilidad: ")) {
                     if (tab != null) {
-                        tab.setDisponibilidad(linea.substring(16).trim());
+                        //tab.setDisponibilidad(linea.substring(16).trim());
                     }
                 }
                
