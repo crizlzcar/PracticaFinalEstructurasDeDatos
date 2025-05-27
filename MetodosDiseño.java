@@ -1,24 +1,23 @@
-import java.util.LinkedList;
-import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 public class MetodosDiseño {
     private final Scanner sc = new Scanner(System.in);
 
-    //Método para validar cadena de texto sin caracteres especiales
-
-    public String validarCadena(String cadena) {
-        
+    // Método para validar cadena de texto sin caracteres especiales
+    public String validarCadena(String mens) {
+        String cadena;
         while (true) {
-            System.out.println("Ingrese un texto (solo letras y números):");
+            System.out.println(mens);
             cadena = sc.nextLine().trim();
-            
+
             if (cadena.isEmpty()) {
                 System.out.println("Error: La cadena no puede estar vacía.");
                 continue;
             }
-            
+
             if (cadena.matches("^[a-zA-Z0-9 ]*$")) {
                 return cadena;
             } else {
@@ -27,21 +26,18 @@ public class MetodosDiseño {
         }
     }
 
-
-
-    //Método para validar cadena de texto sin caracteres especiales ni números
-
-    public String validarCadenaSinNumeros(String cadena) {
-        
+    // Método para validar cadena de texto sin caracteres especiales ni números
+    public String validarCadenaSinNumeros(String mensaje) {
+        String cadena;
         while (true) {
-            System.out.println("Ingrese un texto (solo letras):");
+            System.out.println(mensaje);
             cadena = sc.nextLine().trim();
-            
+
             if (cadena.isEmpty()) {
                 System.out.println("Error: La cadena no puede estar vacía.");
                 continue;
             }
-            
+
             if (cadena.matches("^[a-zA-Z ]+$")) {
                 return cadena;
             } else {
@@ -50,86 +46,62 @@ public class MetodosDiseño {
         }
     }
 
-    //Método para validar núnmero entero
-
-    public int validarEntero(int i) {
-        
-        int numero = 0;
+    // Método para validar double
+    public double validarDecimal(String m) {
+        double numero = 0.0;
         boolean entradaValida = false;
-        
+
         while (!entradaValida) {
-            System.out.print(i);
-            
-            if (sc.hasNextInt()) {
-                numero = sc.nextInt();
+            System.out.print(m);
+            try {
+                numero = sc.nextDouble();
                 entradaValida = true;
-            } else {
-                System.out.println("Error: Debe ingresar un número entero válido.");
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Debe ingresar un número válido (ejemplo: 15 o 3.14).");
                 sc.next();
+            } finally {
+                sc.nextLine();
             }
         }
-        
         return numero;
     }
 
-    //Método para validar double
-    
-        public double validarDecimal(Double numero) {
-            
-            boolean entradaValida = false;
-            
-            while (!entradaValida) {
-                System.out.print("Por favor, ingrese un número (puede ser decimal): ");
-                
-                if (sc.hasNextDouble()) {
-                    numero = sc.nextDouble();
-                    entradaValida = true;
-                } else {
-                    System.out.println("Error: Debe ingresar un número válido (ejemplo: 15 o 3.14).");
-                    sc.next();
-                }
+    private int validarEntero(String mensaje) {
+        int opcion = -1;
+        while (true) {
+            System.out.print(mensaje);
+            if (sc.hasNextInt()) {
+                opcion = sc.nextInt();
+                sc.nextLine(); 
+                return opcion;
+            } else {
+                System.out.println("Entrada inválida. Por favor, ingrese solo números.");
+                sc.nextLine();
             }
-            
-            return numero;
         }
-
+    }
 
     // Método para registrar un estudiante de diseño
     public LinkedList<EstudianteDiseño> registrarEstudianteDiseño(
             LinkedList<EstudianteDiseño> listaEstudiantesDiseño) {
         EstudianteDiseño estudiante = new EstudianteDiseño();
 
-        System.out.println("Ingrese la cédula del estudiante:");
-        estudiante.setCedula(validarCadena(sc.next()));
-        sc.nextLine(); // Limpiar buffer después de next()
+        // Uso consistente de validarCadena
+        estudiante.setCedula(validarCadena("Ingrese la cédula del estudiante:"));
 
-        System.out.println("Ingrese el nombre del estudiante:");
-        estudiante.setNombre(validarCadenaSinNumeros(sc.nextLine()));
+        // Uso consistente de validarCadenaSinNumeros
+        estudiante.setNombre(validarCadenaSinNumeros("Ingrese el nombre del estudiante:"));
 
-        System.out.println("Ingrese el apellido del estudiante:");
-        estudiante.setApellido(validarCadenaSinNumeros(sc.nextLine()));
+        estudiante.setApellido(validarCadenaSinNumeros("Ingrese el apellido del estudiante:"));
 
-        System.out.println("Ingrese el teléfono del estudiante:");
-        estudiante.setTelefono(validarCadena(sc.next()));
+        estudiante.setTelefono(validarCadena("Ingrese el teléfono del estudiante:"));
 
-        // Selección de modalidad de estudio
         String modalidad = modalidadEstudio();
         estudiante.setModalidadEstudio(modalidad);
+        
+        estudiante.setCantidadAsignaturas(validarEntero("Ingrese la cantidad de asignaturas del estudiante:"));
 
-        while (true) {
-            try {
-                System.out.println("Ingrese la cantidad de asignaturas del estudiante:");
-                estudiante.setCantidadAsignaturas(validarEntero(sc.nextInt()));
-                sc.nextLine(); // Limpiar buffer después de nextInt()
-                break;
-            } catch (InputMismatchException e) {
-                System.out.println("Por favor ingrese un número válido.");
-                sc.nextLine(); // Limpiar buffer en caso de error
-            }
-        }
-
-        System.out.println("Ingrese el serial de la tableta:");
-        estudiante.setSerialEquipo(validarCadena(sc.next()));
+        estudiante.setSerialEquipo(validarCadena("Ingrese el serial de la tableta:"));
 
         listaEstudiantesDiseño.add(estudiante);
         return listaEstudiantesDiseño;
@@ -137,26 +109,29 @@ public class MetodosDiseño {
 
     // Método para seleccionar modalidad de estudio
     public String modalidadEstudio() {
-        System.out.println("Seleccione la modalidad de estudio:");
-        System.out.println("1. Presencial");
-        System.out.println("2. Virtual");
         int opcion;
-        try {
-            opcion = sc.nextInt();
-        } catch (InputMismatchException e) {
-            System.out.println("Entrada inválida, intente nuevamente.");
-            sc.nextLine();
-            return modalidadEstudio();
-        }
-        sc.nextLine(); // Limpiar buffer
-        switch (opcion) {
-            case 1:
-                return "Presencial";
-            case 2:
-                return "Virtual";
-            default:
-                System.out.println("Opción no válida, intente nuevamente.");
-                return modalidadEstudio();
+        while (true) {
+            System.out.println("Seleccione la modalidad de estudio:");
+            System.out.println("1. Presencial");
+            System.out.println("2. Virtual");
+            
+            try {
+                opcion = sc.nextInt();
+                sc.nextLine(); // Limpiar buffer después de nextInt()
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida, por favor ingrese 1 o 2.");
+                sc.nextLine();
+                continue;
+            }
+
+            switch (opcion) {
+                case 1:
+                    return "Presencial";
+                case 2:
+                    return "Virtual";
+                default:
+                    System.out.println("Opción no válida, intente nuevamente.");
+            }
         }
     }
 
@@ -165,27 +140,18 @@ public class MetodosDiseño {
             LinkedList<TabletaGrafica> listaTabletas) {
         TabletaGrafica tableta = new TabletaGrafica();
 
-        System.out.println("Ingrese el serial de la tableta:");
-        tableta.setSerial(validarCadena(sc.next()));
-        sc.nextLine(); // Limpiar buffer
+        tableta.setSerial(validarCadena("Ingrese el serial de la tableta:"));
 
-        System.out.println("Ingrese la marca de la tableta:");
-        tableta.setMarca(validarCadenaSinNumeros(sc.nextLine()));
+        tableta.setMarca(validarCadenaSinNumeros("Ingrese la marca de la tableta:"));
 
-        System.out.println("Ingrese el tamaño de la tableta (en pulgadas):");
-        tableta.setTamano(validarDecimal(sc.nextDouble()));
-        sc.nextLine();
+        tableta.setTamano(validarDecimal("Ingrese el tamaño de la tableta (en pulgadas):"));
 
-        System.out.println("Ingrese el precio de la tableta:");
-        tableta.setPrecio(validarDecimal(sc.nextDouble()));
-        sc.nextLine();
+        tableta.setPrecio(validarDecimal("Ingrese el precio de la tableta:"));
 
         String almacenamiento = tableta.obtenerAlmacenamientoTableta(sc);
         tableta.setAlmacenamiento(almacenamiento);
 
-        System.out.println("Ingrese el peso de la tableta (en kg):");
-        tableta.setPeso(validarDecimal(sc.nextDouble()));
-        sc.nextLine();
+        tableta.setPeso(validarDecimal("Ingrese el peso de la tableta (en kg):"));
 
         tableta.setDisponible(seleccionarDisponibilidadTableta());
 
@@ -195,40 +161,41 @@ public class MetodosDiseño {
 
     // Método para seleccionar disponibilidad de la tableta gráfica
     public boolean seleccionarDisponibilidadTableta() {
-        System.out.println("¿Está disponible? 1. Disponible 2. No disponible");
         int opcion;
-        try {
-            opcion = sc.nextInt();
-        } catch (InputMismatchException e) {
-            System.out.println("Entrada inválida, intente nuevamente.");
-            sc.nextLine();
-            return seleccionarDisponibilidadTableta();
-        }
-        switch (opcion) {
-            case 1:
-                return true;
-            case 2:
-                return false;
-            default:
-                System.out.println("Opción no válida, intente nuevamente.");
+        while (true) {
+            System.out.println("¿Está disponible? 1. Disponible 2. No disponible");
+            
+            try {
+                opcion = sc.nextInt();
                 sc.nextLine();
-                return seleccionarDisponibilidadTableta();
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida, por favor ingrese 1 o 2.");
+                sc.nextLine();
+                continue;
+            }
+
+            switch (opcion) {
+                case 1:
+                    return true;
+                case 2:
+                    return false;
+                default:
+                    System.out.println("Opción no válida, intente nuevamente.");
+            }
         }
     }
 
     // Método para registrar préstamo de tableta gráfica
     public LinkedList<TabletaGrafica> registrarPrestamoTabletaGrafica(LinkedList<TabletaGrafica> listaTabletas,
             LinkedList<EstudianteDiseño> listaEstudiantesDiseño) {
-        System.out.println("Ingrese el serial de la tableta a prestar:");
-        String serial = validarCadena(sc.next());
+        String serial = validarCadena("Ingrese el serial de la tableta a prestar:");
 
-        System.out.println("Ingrese la cédula del estudiante:");
-        String cedula = validarCadena(sc.next());
+        String cedula = validarCadena("Ingrese la cédula del estudiante:");
 
         for (TabletaGrafica tableta : listaTabletas) {
             if (tableta.getSerial().equalsIgnoreCase(serial) && tableta.isDisponible()) {
                 for (EstudianteDiseño estudiante : listaEstudiantesDiseño) {
-                    if (estudiante.getCedula().equals(cedula)) {
+                    if (estudiante.getCedula().equalsIgnoreCase(cedula)) { // Usar equalsIgnoreCase para consistencia
                         tableta.setDisponible(false);
                         System.out.println("Tableta prestada a " + estudiante.getNombre());
                         return listaTabletas;
@@ -245,13 +212,11 @@ public class MetodosDiseño {
     // Método para modificar préstamo de tableta gráfica por serial o cédula
     public LinkedList<TabletaGrafica> modificarPrestamoTabletaGrafica(LinkedList<TabletaGrafica> lista,
             LinkedList<EstudianteDiseño> listaEstudiantesDiseño) {
-        System.out.println("Ingrese la cédula del estudiante a modificar:");
-        String cedula = validarCadena(sc.next());
+        String cedula = validarCadena("Ingrese la cédula del estudiante a modificar:");
 
         for (EstudianteDiseño estudiante : listaEstudiantesDiseño) {
             if (estudiante.getCedula().equalsIgnoreCase(cedula)) {
-                System.out.println("Ingrese el nuevo serial de la tableta:");
-                String nuevoSerial = validarCadena(sc.next());
+                String nuevoSerial = validarCadena("Ingrese el nuevo serial de la tableta:");
 
                 for (TabletaGrafica tableta : lista) {
                     if (tableta.getSerial().equals(nuevoSerial)) {
@@ -268,17 +233,16 @@ public class MetodosDiseño {
         return lista;
     }
 
-    // Método para eliminar una tableta gráfica
+    // Método para devolver una tableta gráfica
     public LinkedList<TabletaGrafica> devolverTabletaGrafica(LinkedList<TabletaGrafica> lista) {
-        System.out.println("Ingrese el serial de la tableta a devolver:");
-        String serial = validarCadena(sc.next());
+        String serial = validarCadena("Ingrese el serial de la tableta a devolver:");
 
         Iterator<TabletaGrafica> iterator = lista.iterator();
         while (iterator.hasNext()) {
             TabletaGrafica tableta = iterator.next();
             if (tableta.getSerial().equals(serial)) {
-                iterator.remove();
-                System.out.println("Tableta devuelta.");
+                tableta.setDisponible(true);
+                System.out.println("Tableta devuelta y disponible.");
                 return lista;
             }
         }
@@ -288,8 +252,7 @@ public class MetodosDiseño {
 
     // Método para buscar una tableta gráfica por serial
     public TabletaGrafica buscarTabletaGrafica(LinkedList<TabletaGrafica> lista) {
-        System.out.println("Ingrese el serial de la tableta a buscar:");
-        String serial = validarCadena(sc.next());
+        String serial = validarCadena("Ingrese el serial de la tableta a buscar:");
 
         for (TabletaGrafica tableta : lista) {
             if (tableta.getSerial().equals(serial)) {
@@ -299,5 +262,12 @@ public class MetodosDiseño {
         }
         System.out.println("Serial no encontrado.");
         return null;
+    }
+
+    // Método para cerrar el Scanner al finalizar la aplicación
+    public void closeScanner() {
+        if (sc != null) {
+            sc.close();
+        }
     }
 }
