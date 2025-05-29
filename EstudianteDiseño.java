@@ -89,3 +89,5 @@ public class EstudianteDiseño {
                 "  Serial Equipo: " + serialEquipo;
     }
 }
+
+

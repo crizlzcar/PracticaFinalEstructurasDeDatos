@@ -167,8 +167,8 @@ public class ComputadorPortatil {
             case 2:
                 return "Intel® Core™ i5";
             default:
-                System.out.println("Opción de procesador inválida. Se asignará Intel® Core™ i5 por defecto.");
-                return "Intel® Core™ i5";
+                System.out.println("Opción de procesador incorrecta. Intente de nuevo.");
+                return obtenerProcesadorComputador(scanner);
         }
     }
 

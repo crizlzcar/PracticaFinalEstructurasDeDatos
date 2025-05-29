@@ -83,7 +83,7 @@ public class Menu {
                     break;
                 case 3:
                     System.out.println("DEVOLVER COMPUTADOR PORTATIL");
-                    metodos.devolverComputadorPortatil(listaPortatiles);
+                    metodos.devolverComputadorPortatil(listaPortatiles, listaEstudiantesIngenieria);
                     break;
                 case 4:
                     System.out.println("BUSCAR PC");
@@ -125,7 +125,7 @@ public class Menu {
                     break;
                 case 3:
                     System.out.println("DEVOLVER TABLETA GRAFICA");
-                    metodosDiseño.devolverTabletaGrafica(listaTabletas);
+                    metodosDiseño.devolverTabletaGrafica(listaTabletas, listaEstudiantesDiseño);
                     break;
                 case 4:
                     System.out.println("BUSCAR TABLETA GRAFICA");
